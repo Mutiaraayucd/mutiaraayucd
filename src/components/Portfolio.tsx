@@ -22,13 +22,10 @@ function Cursor() {
   }, [x, y]);
 
   return (
-    <motion.div
-      style={{ x, y }}
-      className="pointer-events-none fixed left-0 top-0 z-[100] hidden md:block"
-    >
+    <motion.div style={{ x, y }} className="pointer-events-none fixed left-0 top-0 z-[100] hidden md:block">
       <motion.div
         animate={{ scale: hover ? 3 : 1, opacity: hover ? 0.4 : 1 }}
-        className="-translate-x-1/2 -translate-y-1/2 size-3 rounded-full bg-ink mix-blend-difference"
+        className="-translate-x-1/2 -translate-y-1/2 size-3 rounded-full mix-blend-difference"
         style={{ background: "var(--ink)" }}
       />
     </motion.div>
@@ -38,9 +35,10 @@ function Cursor() {
 // ---------- Nav ----------
 function Nav() {
   const links = [
-    { label: "Work", href: "#work" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Tentang", href: "#about" },
+    { label: "Pengalaman", href: "#work" },
+    { label: "Skill", href: "#skills" },
+    { label: "Kontak", href: "#contact" },
   ];
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 md:px-12">
@@ -51,13 +49,13 @@ function Nav() {
         transition={{ duration: 0.6 }}
         className="font-display text-xl font-semibold tracking-tight"
       >
-        hk<span className="text-accent-hot">.</span>
+        macd<span className="text-accent-hot">.</span>
       </motion.a>
       <motion.nav
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="flex items-center gap-1 rounded-full border border-border bg-background/60 px-2 py-1.5 backdrop-blur-md"
+        className="hidden items-center gap-1 rounded-full border border-border bg-background/60 px-2 py-1.5 backdrop-blur-md md:flex"
       >
         {links.map((l) => (
           <a
@@ -75,7 +73,7 @@ function Nav() {
 
 // ---------- Hero ----------
 function Hero() {
-  const word = "Annyeonghaseyo";
+  const word = "Halo,saya";
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-24">
       <motion.p
@@ -84,10 +82,10 @@ function Hero() {
         transition={{ delay: 0.4 }}
         className="mb-6 flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground"
       >
-        Made with <span className="inline-block size-2 rounded-full bg-accent-hot" />
+        Portofolio <span className="inline-block size-2 rounded-full bg-accent-hot" /> 2026
       </motion.p>
 
-      <h1 className="font-display text-center text-[14vw] font-light leading-[0.9] tracking-tight md:text-[12vw]">
+      <h1 className="font-display text-center text-[14vw] font-light leading-[0.9] tracking-tight md:text-[10vw]">
         {word.split("").map((c, i) => (
           <motion.span
             key={i}
@@ -95,28 +93,39 @@ function Hero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.9, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
             className="inline-block"
-            style={{ fontStyle: i === 4 || i === 9 ? "italic" : "normal" }}
+            style={{ fontStyle: i === 5 ? "italic" : "normal" }}
           >
-            {c}
+            {c === "," ? "," : c}
           </motion.span>
         ))}
+        <br />
+        <motion.span
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="font-display italic text-accent-hot"
+        >
+          Mutiara Ayu
+        </motion.span>
       </h1>
 
       <motion.div
         initial={{ opacity: 0, scaleX: 0 }}
         animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ duration: 1.2, delay: 1.2 }}
-        className="mt-8 flex w-full max-w-3xl items-center gap-4 text-sm tracking-widest text-muted-foreground"
+        transition={{ duration: 1.2, delay: 1.4 }}
+        className="mt-10 flex w-full max-w-3xl items-center gap-4 text-xs tracking-widest text-muted-foreground md:text-sm"
       >
-        <span>HASAN</span>
+        <span>UX WRITER</span>
         <span className="h-px flex-1 bg-foreground/30" />
-        <span>KILABI</span>
+        <span>UI/UX DESIGNER</span>
+        <span className="h-px flex-1 bg-foreground/30" />
+        <span>WEB DEVELOPER</span>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
+        transition={{ delay: 1.8 }}
         className="absolute bottom-10 flex flex-col items-center gap-3"
       >
         <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">scroll</span>
@@ -134,7 +143,7 @@ function Hero() {
 
 // ---------- Marquee ----------
 function Marquee() {
-  const items = ["Branding", "•", "Web Design", "•", "UI / UX", "•", "Illustration", "•", "Motion", "•", "Art Direction", "•"];
+  const items = ["UX Writing", "•", "UI/UX Design", "•", "Graphic Design", "•", "Web Development", "•", "Copywriting", "•", "Content Creation", "•"];
   return (
     <div className="overflow-hidden border-y border-border py-6">
       <div className="marquee-track flex w-max gap-12 whitespace-nowrap font-display text-5xl italic md:text-7xl">
@@ -146,7 +155,7 @@ function Marquee() {
   );
 }
 
-// ---------- About with parallax ----------
+// ---------- About ----------
 function About() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -156,13 +165,19 @@ function About() {
     <section id="about" ref={ref} className="relative px-6 py-32 md:px-12 md:py-48">
       <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-12">
         <motion.div style={{ y }} className="md:col-span-4">
-          <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">01 — About</p>
-          <p className="font-display text-3xl italic">Hello there 👋</p>
+          <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">01 — Tentang</p>
+          <p className="font-display text-3xl italic">Senang berkenalan 👋</p>
+          <div className="mt-8 space-y-2 text-sm text-muted-foreground">
+            <p>📍 Jember, Jawa Timur</p>
+            <p>🎓 D4 Teknik Informatika</p>
+            <p>📊 IPK 3.85 / 4.0</p>
+          </div>
         </motion.div>
         <div className="md:col-span-8">
           {[
-            "I'm a multidisciplinary designer based in Jakarta, crafting brand identities and digital experiences for ambitious teams.",
-            "For the last 5 years I've helped startups and studios turn complex ideas into clear, delightful products — from the first sketch to the last pixel.",
+            "Fresh graduate D4 Teknik Informatika Politeknik Negeri Jember dengan spesialisasi UI/UX Design dan UX Writing.",
+            "Berpengalaman merancang antarmuka, menyusun microcopy, serta mengembangkan konten digital yang berfokus pada peningkatan kualitas pengalaman pengguna.",
+            "Detail-oriented, mampu bekerja mandiri maupun kolaboratif, dengan komunikasi efektif dan berorientasi hasil.",
           ].map((t, i) => (
             <motion.p
               key={i}
@@ -170,7 +185,7 @@ function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: i * 0.15 }}
-              className="mb-6 font-display text-3xl font-light leading-snug md:text-5xl"
+              className="mb-6 font-display text-2xl font-light leading-snug md:text-4xl"
             >
               {t}
             </motion.p>
@@ -183,10 +198,13 @@ function About() {
 
 // ---------- Work ----------
 const projects = [
-  { n: "01", title: "Lumen Studio", tag: "Brand Identity", year: "2025", color: "oklch(0.7 0.18 50)" },
-  { n: "02", title: "Northwind Bank", tag: "Product Design", year: "2024", color: "oklch(0.45 0.12 240)" },
-  { n: "03", title: "Kopi Senja", tag: "Packaging", year: "2024", color: "oklch(0.55 0.15 30)" },
-  { n: "04", title: "Atlas OS", tag: "Web App", year: "2023", color: "oklch(0.35 0.08 160)" },
+  { n: "01", title: "Kominfo Jatim", tag: "UX Writer · Majadigi & Maja.AI", year: "2025", color: "oklch(0.55 0.18 250)" },
+  { n: "02", title: "SEAL Indonesia", tag: "UX Writer · Content Plan", year: "2025", color: "oklch(0.62 0.18 30)" },
+  { n: "03", title: "IQACS Greenhouse", tag: "UI/UX · IoT Monitoring", year: "2024", color: "oklch(0.55 0.15 150)" },
+  { n: "04", title: "KampSewa", tag: "UI/UX · Marketplace", year: "2024", color: "oklch(0.6 0.16 60)" },
+  { n: "05", title: "Juragan Travel", tag: "UI/UX · Haji & Umroh", year: "2023", color: "oklch(0.5 0.15 200)" },
+  { n: "06", title: "Ngantinkuy", tag: "UI/UX · Kasir RFID", year: "2022", color: "oklch(0.45 0.14 320)" },
+  { n: "07", title: "Toko Sembako Andika", tag: "UI/UX · Desktop App", year: "2022", color: "oklch(0.55 0.14 100)" },
 ];
 
 function Work() {
@@ -195,9 +213,9 @@ function Work() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 flex items-end justify-between">
           <div>
-            <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">02 — Selected Work</p>
+            <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">02 — Pengalaman & Project</p>
             <h2 className="font-display text-5xl font-light md:text-7xl">
-              Recent <span className="italic">projects</span>
+              Selected <span className="italic">work</span>
             </h2>
           </div>
         </div>
@@ -231,11 +249,11 @@ function ProjectRow({ n, title, tag, year, color, index }: typeof projects[numbe
         setPos({ x: e.clientX - r.left, y: e.clientY - r.top });
       }}
       data-cursor
-      className="group relative flex cursor-pointer items-center justify-between border-b border-border py-8 transition-colors hover:bg-foreground hover:text-background"
+      className="group relative flex cursor-pointer items-center justify-between border-b border-border py-6 transition-colors hover:bg-foreground hover:text-background md:py-8"
     >
       <div className="flex items-baseline gap-6 md:gap-12">
         <span className="font-mono text-sm text-muted-foreground group-hover:text-background/60">{n}</span>
-        <h3 className="font-display text-3xl font-light md:text-6xl">
+        <h3 className="font-display text-2xl font-light md:text-5xl">
           <motion.span animate={{ x: hover ? 12 : 0 }} transition={{ ease: [0.22, 1, 0.36, 1] }} className="inline-block">
             {title}
           </motion.span>
@@ -263,15 +281,121 @@ function ProjectRow({ n, title, tag, year, color, index }: typeof projects[numbe
   );
 }
 
-// ---------- Big quote ----------
+// ---------- Skills ----------
+const skillGroups = [
+  { title: "Design", items: ["Figma", "Adobe Photoshop", "Canva", "CorelDRAW"] },
+  { title: "Development", items: ["HTML", "CSS", "JavaScript", "React", "Laravel", "PHP", "MySQL"] },
+  { title: "Content & Writing", items: ["UX Writing", "Copywriting", "Microcopy", "CapCut", "Content Plan"] },
+  { title: "Lainnya", items: ["MS Office", "Problem Solving", "Time Management", "Bahasa: ID (aktif), EN (pasif)"] },
+];
+
+function Skills() {
+  return (
+    <section id="skills" className="bg-foreground px-6 py-32 text-background md:px-12">
+      <div className="mx-auto max-w-6xl">
+        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-background/60">03 — Keterampilan</p>
+        <h2 className="mb-16 font-display text-5xl font-light md:text-7xl">
+          Tools & <span className="italic text-accent-hot">stack</span>
+        </h2>
+        <div className="grid gap-12 md:grid-cols-2">
+          {skillGroups.map((g, i) => (
+            <motion.div
+              key={g.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="border-t border-background/20 pt-6"
+            >
+              <h3 className="mb-6 font-display text-2xl italic">{g.title}</h3>
+              <ul className="flex flex-wrap gap-2">
+                {g.items.map((s) => (
+                  <li key={s} className="rounded-full border border-background/30 px-4 py-2 text-sm">
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ---------- Education & Achievements ----------
+const education = [
+  { place: "Politeknik Negeri Jember", detail: "D4 Teknik Informatika · IPK 3.85", year: "2022 — Sekarang" },
+  { place: "SMA Negeri 3 Jember", detail: "MIPA · Rata-rata Ujian 89.81", year: "2019 — 2022" },
+];
+
+const achievements = [
+  "Juara 1 Poster Terbaik (KampSewa) · TIF Exhibition 2025",
+  "Juara 1 Pengembangan Aplikasi (Ngantin Kuy) · TIF Exhibition 2023",
+  "Juara 2 Lomba Video (KampSewa) · TIF Exhibition 2024",
+  "Juara 3 Lomba Poster (KampSewa) · TIF Exhibition 2024",
+  "Junior Graphic Designer · Digital Talent Scholarship 2024",
+  "Junior Web Developer · Digital Talent Scholarship 2024",
+  "MBKM IQACS Greenhouse Kopi Nursery 2024",
+];
+
+function EduAchieve() {
+  return (
+    <section className="px-6 py-32 md:px-12">
+      <div className="mx-auto grid max-w-6xl gap-16 md:grid-cols-2">
+        <div>
+          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">04 — Pendidikan</p>
+          <h2 className="mb-10 font-display text-4xl font-light md:text-5xl">Riwayat <span className="italic">pendidikan</span></h2>
+          <div className="space-y-8">
+            {education.map((e, i) => (
+              <motion.div
+                key={e.place}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="border-l-2 border-accent-hot pl-6"
+              >
+                <p className="font-mono text-xs text-muted-foreground">{e.year}</p>
+                <h3 className="mt-1 font-display text-2xl">{e.place}</h3>
+                <p className="text-sm text-muted-foreground">{e.detail}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">05 — Pencapaian</p>
+          <h2 className="mb-10 font-display text-4xl font-light md:text-5xl">Highlight <span className="italic">prestasi</span></h2>
+          <ul className="space-y-4">
+            {achievements.map((a, i) => (
+              <motion.li
+                key={a}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="flex gap-3 border-b border-border pb-3 text-sm"
+              >
+                <span className="text-accent-hot">★</span>
+                <span>{a}</span>
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ---------- Quote ----------
 function Quote() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["10%", "-30%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["10%", "-40%"]);
   return (
     <section ref={ref} className="overflow-hidden py-32">
-      <motion.h2 style={{ x }} className="whitespace-nowrap font-display text-[16vw] font-light italic leading-none">
-        design — with intention.
+      <motion.h2 style={{ x }} className="whitespace-nowrap font-display text-[14vw] font-light italic leading-none">
+        words shape — experiences.
       </motion.h2>
     </section>
   );
@@ -288,31 +412,40 @@ function Contact() {
           viewport={{ once: true }}
           className="mb-6 text-xs uppercase tracking-[0.3em] text-muted-foreground"
         >
-          03 — Let's talk
+          06 — Mari berkolaborasi
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="font-display text-6xl font-light leading-[0.95] md:text-9xl"
+          className="font-display text-5xl font-light leading-[0.95] md:text-8xl"
         >
-          Got a <span className="italic text-accent-hot">project</span><br />in mind?
+          Punya <span className="italic text-accent-hot">project</span><br />menarik?
         </motion.h2>
 
         <motion.a
-          href="mailto:hello@hasankilabi.com"
+          href="mailto:mutiaraayucd56@gmail.com"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
           className="mt-12 inline-flex items-center gap-3 rounded-full bg-foreground px-8 py-4 text-background"
         >
-          hello@hasankilabi.com <span>↗</span>
+          mutiaraayucd56@gmail.com <span>↗</span>
         </motion.a>
 
-        <div className="mt-20 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
-          {["Instagram", "Dribbble", "Behance", "LinkedIn"].map((s) => (
-            <a key={s} href="#" className="hover:text-foreground">{s}</a>
-          ))}
+        <div className="mt-20 grid gap-6 text-sm md:grid-cols-3">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">Email</p>
+            <a href="mailto:mutiaraayucd56@gmail.com" className="hover:text-accent-hot">mutiaraayucd56@gmail.com</a>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">Telepon</p>
+            <a href="tel:+6289686404940" className="hover:text-accent-hot">0896 8640 4940</a>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">LinkedIn</p>
+            <a href="https://www.linkedin.com/in/mutiara-ayu-05b96a346/" target="_blank" rel="noreferrer" className="hover:text-accent-hot">/in/mutiara-ayu</a>
+          </div>
         </div>
       </div>
     </section>
@@ -322,8 +455,8 @@ function Contact() {
 function Footer() {
   return (
     <footer className="flex flex-col items-center justify-between gap-4 border-t border-border px-6 py-8 text-xs uppercase tracking-widest text-muted-foreground md:flex-row md:px-12">
-      <span>© 2025 Hasan Kilabi</span>
-      <span>Crafted in Jakarta</span>
+      <span>© 2026 Mutiara Ayu Candra Dewi</span>
+      <span>Made in Jember, Jawa Timur</span>
     </footer>
   );
 }
@@ -337,6 +470,8 @@ export default function Portfolio() {
       <Marquee />
       <About />
       <Work />
+      <Skills />
+      <EduAchieve />
       <Quote />
       <Contact />
       <Footer />
