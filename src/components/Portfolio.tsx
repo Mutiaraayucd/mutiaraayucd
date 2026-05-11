@@ -73,7 +73,13 @@ function Nav() {
 
 // ---------- Hero ----------
 function Hero() {
-  const word = "Halo,saya";
+  const greetings = ["Halo", "Annyeong", "Hello", "Hola", "Bonjour", "Konnichiwa", "Salam"];
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % greetings.length), 1800);
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-24">
       <motion.p
@@ -86,33 +92,35 @@ function Hero() {
       </motion.p>
 
       <h1 className="font-display text-center text-[14vw] font-light leading-[0.9] tracking-tight md:text-[10vw]">
-        {word.split("").map((c, i) => (
-          <motion.span
-            key={i}
-            initial={{ y: "110%", opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.9, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-block"
-            style={{ fontStyle: i === 5 ? "italic" : "normal" }}
-          >
-            {c === "," ? "," : c}
-          </motion.span>
-        ))}
+        <span className="relative inline-block h-[1.1em] overflow-hidden align-bottom" style={{ minWidth: "5ch" }}>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={greetings[idx]}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: "-100%", opacity: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-block italic"
+            >
+              {greetings[idx]},
+            </motion.span>
+          </AnimatePresence>
+        </span>
         <br />
         <motion.span
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="font-display italic text-accent-hot"
+          transition={{ duration: 1, delay: 0.4 }}
+          className="font-display"
         >
-          Mutiara Ayu
+          saya <span className="italic text-accent-hot">Mutiara Ayu</span>
         </motion.span>
       </h1>
 
       <motion.div
         initial={{ opacity: 0, scaleX: 0 }}
         animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ duration: 1.2, delay: 1.4 }}
+        transition={{ duration: 1.2, delay: 1 }}
         className="mt-10 flex w-full max-w-3xl items-center gap-4 text-xs tracking-widest text-muted-foreground md:text-sm"
       >
         <span>UX WRITER</span>
@@ -125,7 +133,7 @@ function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
+        transition={{ delay: 1.4 }}
         className="absolute bottom-10 flex flex-col items-center gap-3"
       >
         <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">scroll</span>
