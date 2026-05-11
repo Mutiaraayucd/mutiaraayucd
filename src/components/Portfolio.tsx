@@ -183,17 +183,40 @@ function About() {
 
   return (
     <section id="about" ref={ref} className="relative px-6 py-32 md:px-12 md:py-48">
-      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-12">
-        <motion.div style={{ y }} className="md:col-span-4">
+      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-12 md:gap-16">
+        <motion.div style={{ y }} className="md:col-span-5">
           <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">01 — Tentang</p>
-          <p className="font-display text-3xl italic">Senang berkenalan 👋</p>
-          <div className="mt-8 space-y-2 text-sm text-muted-foreground">
-            <p>📍 Jember, Jawa Timur</p>
-            <p>🎓 D4 Teknik Informatika</p>
-            <p>📊 IPK 3.85 / 4.0</p>
+          <p className="mb-6 flex items-center gap-3 font-display text-3xl italic">
+            Senang berkenalan
+            <motion.span
+              animate={{ rotate: [0, 18, -8, 18, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.4 }}
+              style={{ display: "inline-block", transformOrigin: "70% 70%" }}
+            >
+              <E src={EMOJI.wave} className="size-10" />
+            </motion.span>
+          </p>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative mt-4 overflow-hidden rounded-3xl border border-border bg-secondary"
+          >
+            <img src={mutiaraPhoto} alt="Mutiara Ayu Candra Dewi" className="block w-full" />
+            <div className="absolute bottom-3 left-3 rounded-full bg-background/80 px-3 py-1 text-xs backdrop-blur-md">
+              Mutiara Ayu Candra Dewi
+            </div>
+          </motion.div>
+
+          <div className="mt-8 space-y-3 text-sm text-muted-foreground">
+            <p className="flex items-center gap-2"><E src={EMOJI.pin} className="size-5" /> Jember, Jawa Timur</p>
+            <p className="flex items-center gap-2"><E src={EMOJI.cap} className="size-5" /> D4 Teknik Informatika</p>
+            <p className="flex items-center gap-2"><E src={EMOJI.chart} className="size-5" /> IPK 3.85 / 4.0</p>
           </div>
         </motion.div>
-        <div className="md:col-span-8">
+        <div className="md:col-span-7">
           {[
             "Fresh graduate D4 Teknik Informatika Politeknik Negeri Jember dengan spesialisasi UI/UX Design dan UX Writing.",
             "Berpengalaman merancang antarmuka, menyusun microcopy, serta mengembangkan konten digital yang berfokus pada peningkatan kualitas pengalaman pengguna.",
@@ -205,7 +228,7 @@ function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: i * 0.15 }}
-              className="mb-6 font-display text-2xl font-light leading-snug md:text-4xl"
+              className="mb-6 font-display text-2xl font-light leading-snug md:text-3xl"
             >
               {t}
             </motion.p>
