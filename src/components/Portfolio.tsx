@@ -311,13 +311,32 @@ function ProjectRow({ n, title, tag, year, color, index }: typeof projects[numbe
       <AnimatePresence>
         {hover && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.6 }}
-            transition={{ duration: 0.25 }}
-            style={{ left: pos.x, top: pos.y, background: color }}
-            className="pointer-events-none absolute z-10 hidden h-48 w-72 -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-2xl md:block"
-          />
+            initial={{ opacity: 0, y: 20, scale: 0.9, rotate: -4 }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotate: -2 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            style={{ left: Math.min(Math.max(pos.x, 180), (ref.current?.clientWidth ?? 1000) - 180), top: pos.y }}
+            className="pointer-events-none absolute z-10 hidden -translate-x-1/2 -translate-y-1/2 md:block"
+          >
+            <div
+              className="flex h-56 w-80 flex-col justify-between overflow-hidden rounded-2xl p-5 text-background shadow-2xl ring-1 ring-background/10"
+              style={{ background: `linear-gradient(135deg, ${color}, color-mix(in oklch, ${color} 60%, black))` }}
+            >
+              <div className="flex items-start justify-between">
+                <span className="font-mono text-xs opacity-70">{n} / {year}</span>
+                <span className="rounded-full bg-background/15 px-3 py-1 text-[10px] uppercase tracking-widest backdrop-blur">
+                  View case
+                </span>
+              </div>
+              <div>
+                <p className="font-display text-2xl leading-tight">{title}</p>
+                <p className="mt-1 text-xs opacity-80">{tag}</p>
+              </div>
+              <div className="absolute -right-6 -bottom-6 font-display text-[8rem] font-light leading-none opacity-10">
+                {n}
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.li>
