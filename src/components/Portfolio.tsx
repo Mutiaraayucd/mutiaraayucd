@@ -1,5 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import mutiaraPhoto from "@/assets/mutiara.png";
+
+const EMOJI = {
+  wave: "https://em-content.zobj.net/source/microsoft-teams/337/waving-hand_1f44b.png",
+  pin: "https://em-content.zobj.net/source/microsoft-teams/337/round-pushpin_1f4cd.png",
+  cap: "https://em-content.zobj.net/source/microsoft-teams/337/graduation-cap_1f393.png",
+  chart: "https://em-content.zobj.net/source/microsoft-teams/337/bar-chart_1f4ca.png",
+  spark: "https://em-content.zobj.net/source/microsoft-teams/337/sparkles_2728.png",
+};
+const E = ({ src, className = "" }: { src: string; className?: string }) => (
+  <img src={src} alt="" className={`inline-block align-middle ${className}`} loading="lazy" />
+);
 
 // ---------- Cursor ----------
 function Cursor() {
