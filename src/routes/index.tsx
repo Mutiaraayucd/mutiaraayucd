@@ -5,8 +5,8 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
   head: () => ({
     meta: [
-      { title: "Hasan Kilabi — Multidisciplinary Designer" },
-      { name: "description", content: "Portfolio of Hasan Kilabi — brand identity, product design, and digital experiences crafted with intention." },
+      { title: "Mutiara Ayu Candra Dewi — UX Writer & UI/UX Designer" },
+      { name: "description", content: "Portofolio Mutiara Ayu Candra Dewi — UX Writer, UI/UX Designer, Graphic Designer, dan Web Developer dari Jember." },
     ],
   }),
 });
