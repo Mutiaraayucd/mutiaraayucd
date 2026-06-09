@@ -55,14 +55,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Mutiara Ayu Candra Dewi — UX Writer & UI/UX Designer" },
+      {
+        name: "description",
+        content:
+          "Portfolio Mutiara Ayu Candra Dewi — UX Writer, UI/UX Designer, Graphic Designer, dan Web Developer asal Jember.",
+      },
+      { name: "author", content: "Mutiara Ayu Candra Dewi" },
+      { property: "og:title", content: "Mutiara Ayu Candra Dewi — UX Writer & UI/UX Designer" },
+      {
+        property: "og:description",
+        content:
+          "Portfolio Mutiara Ayu Candra Dewi — UX Writer, UI/UX Designer, Graphic Designer, dan Web Developer asal Jember.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://mutiaraayucd.vercel.app/" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Mutiara Ayu Candra Dewi — UX Writer & UI/UX Designer" },
+      {
+        name: "twitter:description",
+        content:
+          "Portfolio Mutiara Ayu Candra Dewi — UX Writer, UI/UX Designer, Graphic Designer, dan Web Developer asal Jember.",
+      },
     ],
     links: [
       {
