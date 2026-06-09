@@ -302,7 +302,7 @@ const toolkitGroups = [
   {
     title: "Frontend",
     icon: Code2,
-    skills: ["HTML", "CSS", "JavaScript", "React"],
+    skills: ["HTML", "CSS", "JavaScript", "Typescript", "React"],
   },
   {
     title: "Backend",
