@@ -6,7 +6,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Mutiara Ayu Candra Dewi — UX Writer & UI/UX Designer" },
-      { name: "description", content: "Portofolio Mutiara Ayu Candra Dewi — UX Writer, UI/UX Designer, Graphic Designer, dan Web Developer dari Jember." },
+      {
+        name: "description",
+        content:
+          "Mutiara Ayu Candra Dewi's portfolio — UX Writer, UI/UX Designer, Graphic Designer, and Web Developer based in Jember.",
+      },
     ],
   }),
 });
