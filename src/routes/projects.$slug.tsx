@@ -55,7 +55,7 @@ function ProjectDetailPage() {
   }
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <section className="px-6 py-12 md:px-12 md:py-16">
+      <section className="px-5 py-10 md:px-12 md:py-16">
         <div className="mx-auto max-w-6xl">
           <Link
             to="/"
@@ -66,7 +66,7 @@ function ProjectDetailPage() {
         </div>
       </section>
 
-      <section className="px-6 pb-16 md:px-12 md:pb-24">
+      <section className="px-5 pb-12 md:px-12 md:pb-24">
         <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-12 md:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -77,7 +77,7 @@ function ProjectDetailPage() {
             <p className="mb-4 font-mono text-sm text-muted-foreground">
               {project.n} / {project.year}
             </p>
-            <h1 className="max-w-3xl font-display text-5xl font-light leading-tight md:text-7xl">
+            <h1 className="max-w-3xl font-display text-4xl font-light leading-tight sm:text-5xl md:text-7xl">
               {project.title}
             </h1>
             <p className="mt-5 text-sm uppercase tracking-[0.3em] text-muted-foreground">
@@ -161,7 +161,7 @@ function ProjectDetailPage() {
         </div>
       </section>
 
-      <section className="px-6 pb-24 md:px-12 md:pb-32">
+      <section className="px-5 pb-16 md:px-12 md:pb-32">
         <div className="mx-auto max-w-6xl border-t border-border">
           <DetailSection title="Key Focus" items={[project.challenge]} />
           <DetailSection title="Skills Applied" items={project.role} />
@@ -183,7 +183,7 @@ function GreenhouseLayouts() {
   ];
 
   return (
-    <section className="border-t border-border px-6 py-20 md:px-12 md:py-24">
+    <section className="border-t border-border px-5 py-14 md:px-12 md:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 max-w-3xl">
           <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">

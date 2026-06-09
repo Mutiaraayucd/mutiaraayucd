@@ -381,36 +381,92 @@ function Nav() {
     { label: "Work", href: "#work" },
     { label: "Skills", href: "#skills" },
   ];
+  const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 md:px-12">
-      <motion.a
-        href="#"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="font-display text-xl font-semibold tracking-tight"
-      >
-        macd<span className="text-accent-hot">.</span>
-      </motion.a>
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 md:px-12">
+        <motion.a
+          href="#"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="font-display text-xl font-semibold tracking-tight"
+          onClick={() => setOpen(false)}
+        >
+          macd<span className="text-accent-hot">.</span>
+        </motion.a>
 
-      <motion.nav
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="hidden items-center gap-1 rounded-full border border-border bg-background/60 px-2 py-1.5 backdrop-blur-md md:flex"
+        {/* Desktop nav */}
+        <motion.nav
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="hidden items-center gap-1 rounded-full border border-border bg-background/60 px-2 py-1.5 backdrop-blur-md md:flex"
+        >
+          {links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="rounded-full px-4 py-1.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+            >
+              {link.label}
+            </a>
+          ))}
+        </motion.nav>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="flex size-10 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-background/60 backdrop-blur-md md:hidden"
+          aria-label="Toggle menu"
+        >
+          <motion.span
+            animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }}
+            className="block h-px w-5 bg-foreground origin-center"
+          />
+          <motion.span
+            animate={{ opacity: open ? 0 : 1, scaleX: open ? 0 : 1 }}
+            className="block h-px w-5 bg-foreground"
+          />
+          <motion.span
+            animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }}
+            className="block h-px w-5 bg-foreground origin-center"
+          />
+        </button>
+      </header>
+
+      {/* Mobile full-screen overlay menu */}
+      <motion.div
+        initial={false}
+        animate={{ opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none" }}
+        transition={{ duration: 0.25 }}
+        className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-background/95 backdrop-blur-xl md:hidden"
       >
-        {links.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className="rounded-full px-4 py-1.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
-          >
-            {link.label}
-          </a>
-        ))}
-      </motion.nav>
-    </header>
+        <nav className="flex flex-col items-center gap-8">
+          {links.map((link, i) => (
+            <motion.a
+              key={link.href}
+              href={link.href}
+              initial={false}
+              animate={{ opacity: open ? 1 : 0, y: open ? 0 : 20 }}
+              transition={{ delay: open ? i * 0.08 : 0, duration: 0.35 }}
+              onClick={() => setOpen(false)}
+              className="font-display text-5xl font-light tracking-tight transition-colors hover:text-accent-hot"
+            >
+              {link.label}
+            </motion.a>
+          ))}
+        </nav>
+        <motion.p
+          animate={{ opacity: open ? 1 : 0 }}
+          transition={{ delay: open ? 0.3 : 0 }}
+          className="absolute bottom-10 text-xs uppercase tracking-[0.3em] text-muted-foreground"
+        >
+          mutiaraayucd.vercel.app
+        </motion.p>
+      </motion.div>
+    </>
   );
 }
 
@@ -438,7 +494,7 @@ function Hero() {
   }, []);
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pb-12 pt-24">
+    <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pb-12 pt-20 md:pt-24">
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -473,7 +529,7 @@ function Hero() {
         </div>
       </motion.p>
 
-      <h1 className="font-display text-center text-5xl font-light leading-[1.1] tracking-tight md:text-7xl">
+      <h1 className="font-display text-center text-4xl font-light leading-[1.1] tracking-tight sm:text-5xl md:text-7xl">
         <span
           className="relative inline-block h-[1.1em] overflow-hidden align-bottom"
           style={{ minWidth: "5ch" }}
@@ -642,12 +698,12 @@ function About() {
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section id="about" ref={ref} className="relative overflow-hidden px-6 py-32 md:px-12 md:py-48" style={{
+    <section id="about" ref={ref} className="relative overflow-hidden px-6 py-20 md:px-12 md:py-48" style={{
       backgroundImage: "radial-gradient(#d1d1d1 1px, transparent 1px)",
       backgroundSize: "24px 24px"
     }}>
       <div className="mx-auto max-w-6xl">
-        <div className="grid gap-16 md:grid-cols-12 md:gap-20">
+        <div className="grid gap-12 md:grid-cols-12 md:gap-20">
           {/* Left Column: Info */}
           <div className="md:col-span-7">
             <motion.div
@@ -691,7 +747,7 @@ function About() {
           </div>
 
           {/* Right Column: Portrait */}
-          <div className="relative md:col-span-5">
+          <div className="relative order-first md:order-last md:col-span-5">
             <motion.div
               style={{ y }}
               className="relative flex justify-center"
@@ -717,7 +773,7 @@ function About() {
           </div>
         </div>
 
-        <div className="mt-32">
+        <div className="mt-16 md:mt-32">
           <div>
             <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">03 - Academic Background</p>
             <h3 className="font-display text-5xl font-light tracking-tight md:text-7xl">Education</h3>
@@ -752,9 +808,9 @@ function Work() {
   const [view, setView] = useState<"work" | "certifications" | "organization">("work");
 
   return (
-    <section id="work" className="px-6 py-32 md:px-12">
+    <section id="work" className="px-6 py-20 md:py-32 md:px-12">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="mb-10 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
               04 - Projects
@@ -764,32 +820,34 @@ function Work() {
             </h2>
           </div>
 
-          <div className="inline-flex items-center rounded-full border border-border bg-background/50 p-1 backdrop-blur-sm">
-            <nav className="flex items-center gap-1">
-              {[
-                { id: "work", label: "Project" },
-                { id: "organization", label: "Internship & Organization" },
-                { id: "certifications", label: "Licenses & Certifications" },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setView(tab.id as any)}
-                  className="group relative rounded-full px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest transition-all md:px-6 md:py-3"
-                >
-                  {view === tab.id && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-0 rounded-full bg-foreground shadow-sm"
-                      transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-                    />
-                  )}
-                  <span className={`relative z-10 whitespace-nowrap transition-colors duration-300 ${view === tab.id ? "text-background" : "text-muted-foreground group-hover:text-foreground"
-                    }`}>
-                    {tab.label}
-                  </span>
-                </button>
-              ))}
-            </nav>
+          <div className="w-full overflow-x-auto md:w-auto">
+            <div className="inline-flex items-center rounded-full border border-border bg-background/50 p-1 backdrop-blur-sm">
+              <nav className="flex items-center gap-1">
+                {[
+                  { id: "work", label: "Project" },
+                  { id: "organization", label: "Internship & Org" },
+                  { id: "certifications", label: "Licenses & Certs" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setView(tab.id as any)}
+                    className="group relative rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition-all md:px-6 md:py-3"
+                  >
+                    {view === tab.id && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute inset-0 rounded-full bg-foreground shadow-sm"
+                        transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                      />
+                    )}
+                    <span className={`relative z-10 whitespace-nowrap transition-colors duration-300 ${view === tab.id ? "text-background" : "text-muted-foreground group-hover:text-foreground"
+                      }`}>
+                      {tab.label}
+                    </span>
+                  </button>
+                ))}
+              </nav>
+            </div>
           </div>
         </div>
 
@@ -837,7 +895,7 @@ function ExpandableCard({ item, type, index }: { item: any; type: "org" | "cert"
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card/40 p-8 hover:bg-card/60 transition-colors"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card/40 p-5 md:p-8 hover:bg-card/60 transition-colors"
     >
       <div className="flex-grow">
         <div className="flex items-center justify-between">
@@ -1073,7 +1131,7 @@ function ProjectRow({
     >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex w-full flex-col gap-4 py-8 text-left md:flex-row md:items-center md:justify-between"
+        className="flex w-full flex-col gap-3 py-6 text-left md:flex-row md:items-center md:justify-between"
       >
         <div className="flex items-baseline gap-4 md:gap-8">
           <span className="font-mono text-sm text-muted-foreground">{n}</span>
@@ -1208,7 +1266,7 @@ function ProjectRow({
 
 function Skills() {
   return (
-    <section id="skills" className="bg-foreground px-6 py-32 text-background md:px-12">
+    <section id="skills" className="bg-foreground px-6 py-20 text-background md:py-32 md:px-12">
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
