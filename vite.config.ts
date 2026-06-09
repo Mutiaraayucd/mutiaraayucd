@@ -6,7 +6,12 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-// @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
+// SPA mode: build sebagai static site untuk di-deploy ke Vercel.
+// Cloudflare plugin dinonaktifkan, routing ditangani client-side oleh TanStack Router.
 export default defineConfig({
+  tanstackStart: {
+    spa: {
+      enabled: true,
+    },
+  },
 });
