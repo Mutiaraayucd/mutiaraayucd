@@ -101,7 +101,6 @@ export const projects: ProjectEntry[] = [
     tag: "Machine Learning · Data Analysis · Web Development",
     year: "2026",
     period: "Apr 2026",
-    website: "https://appstokvps.musyah.my.id/dashboard",
     demoAccess: {
       email: "Admin@gmail.com",
       password: "Admin123",
